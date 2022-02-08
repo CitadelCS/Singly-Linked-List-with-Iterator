@@ -1,0 +1,53 @@
+The list is empty.
+[]
+
+[Sydney, Elvis, John, Judy, Paul]
+
+The list is not empty.
+
+l.equals(l2) is false
+
+[Sydney, Elvis, John, Judy, Paul, Mick]
+
+[Curly, Sydney, Diana, Elvis, Larry, John, Judy, Paul, Mick]
+
+Replacing Elvis with Bruce
+[Moe, Curly, Sydney, Diana, Bruce, Larry, John, Judy, Paul, Mick]
+size = 10
+index of "Curly" = 1
+index of "Larry" = 5
+index of "Moe" = 0
+index of "Mick" = 9
+
+Removing Moe
+Removing Mick
+Removing Bruce
+[Curly, Sydney, Diana, Larry, John, Judy, Paul]
+size = 7
+index of "Diana" = 2
+index of "Bruce" = -1
+
+Removing Curly
+Removing Sydney
+[Diana, Larry, John, Judy, Paul]
+
+[Diana, Angela, Larry, John, Judy, Paul, Robert]
+size = 7
+
+[Diana, Angela, Larry, null, John, Judy, Paul, Robert]
+size = 8
+
+Exception information to follow:
+java.util.NoSuchElementException
+    at edu.citadel.util.LinkedList$LinkedListIterator.next(LinkedList.java:88)
+    at test.TestLinkedList.main(TestLinkedList.java:92)
+
+The list has been cleared.
+The list is empty.
+index of "Larry" = -1
+
+Exception information to follow:
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+    at edu.citadel.util.LinkedList.checkIndex(LinkedList.java:122)
+    at edu.citadel.util.LinkedList.remove(LinkedList.java:309)
+    at test.TestLinkedList.main(TestLinkedList.java:110)
