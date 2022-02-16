@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.StringJoiner;
 
 
 /**
@@ -30,7 +31,8 @@ public class LinkedList<E> implements Iterable<E>
          */
         public Node(E data, Node<E> next)
           {
-            ...
+            this.data = data;
+            this.next = next;
           }
 
 
@@ -67,7 +69,8 @@ public class LinkedList<E> implements Iterable<E>
         @Override
         public boolean hasNext()
           {
-            ...
+            boolean nextNode = nextElement.next != null ? true : false;
+            return nextNode;
           }
 
 
@@ -79,7 +82,12 @@ public class LinkedList<E> implements Iterable<E>
         @Override
         public E next()
           {
-            ...
+            if(!hasNext()){
+              throw new NoSuchElementException();
+            }
+            Node<E> nextNodeData = nextElement;
+            nextElement = nextElement.next;
+            return nextNodeData.data;
           }
 
         // Note: Do not have to implement other methods in interface
@@ -137,7 +145,9 @@ public class LinkedList<E> implements Iterable<E>
      */
     public LinkedList()
       {
-        ...
+        first = null;
+        last = null;
+        size = 0;
       }
 
 
@@ -169,8 +179,27 @@ public class LinkedList<E> implements Iterable<E>
      */
     public void add(int index, E element)
       {
-        ...
-      }
+        if(index < 0 || index > size){
+          throw new IndexOutOfBoundsException();
+        }
+
+        else if (index == size || isEmpty()){
+          
+            add(element);
+        }
+          else if(index == 0){
+            first = new Node<E>(element,first);
+            ++size;
+          }
+        
+        else{
+          Node<E> prev = getNode(index-1);
+          Node<E> after = getNode(index);
+          prev.next = new Node<E>(element, after);
+          size++;
+        }
+      
+  }
 
 
     /**
@@ -216,7 +245,11 @@ public class LinkedList<E> implements Iterable<E>
      */
     public E set(int index, E newValue)
       {
-        ...
+        checkIndex(index);
+        Node<E> temp = getNode(index);
+        E tempNode = temp.data;
+        temp.data = newValue;
+        return tempNode;
       }
 
 
@@ -258,7 +291,7 @@ public class LinkedList<E> implements Iterable<E>
      */
     public boolean isEmpty()
       {
-        ...
+        return first == null;
       }
 
 
@@ -273,7 +306,25 @@ public class LinkedList<E> implements Iterable<E>
      */
     public E remove(int index)
       {
-        ...
+        checkIndex(index);
+
+        if(index == 0){
+          E temp = first.data;
+          first = first.next;
+          --size;
+          return temp;
+        }
+        else{
+          Node<E> prev = getNode(index-1);
+          Node<E> after = getNode(index).next;
+          E tempNode = getNode(index).data;
+          if(prev.next == null){
+            last = prev;
+          } 
+          --size;
+          return tempNode;
+
+        }
       }
 
 
@@ -282,7 +333,7 @@ public class LinkedList<E> implements Iterable<E>
      */
     public int size()
       {
-        ...
+        return size;
       }
 
 
@@ -292,7 +343,7 @@ public class LinkedList<E> implements Iterable<E>
     @Override
     public Iterator<E> iterator()
       {
-        ...
+        return new LinkedListIterator<>(first);
       }
 
 
@@ -302,7 +353,11 @@ public class LinkedList<E> implements Iterable<E>
     @Override
     public String toString()
       {
-        ...   // Hint: See class java.util.StringJoiner.
+       StringJoiner stringJoiner = new StringJoiner("," , "[", "]");
+       for(Node<E> i = first; i != null; i=i.next){
+         stringJoiner.add(i.data + " ");
+       } 
+       return stringJoiner.toString(); // Hint: See class java.util.StringJoiner.
       }
 
 
